@@ -27,6 +27,18 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
             
             self.companies.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+            context.delete(company)
+            
+            do {
+                try context.save()
+            } catch let saveErr {
+                print("Failed to delete company:", saveErr)
+            }
+            
+            
         }
         
         let  editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
