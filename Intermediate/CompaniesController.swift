@@ -20,19 +20,18 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
         
     }
     var companies = [Company]()
-    
-    // var: variable that can be modified
-    
-  
- // func addCompany(company: Company) {
-     
-     //    companies.append(company)
-      //  let newIndexPath = IndexPath(row: companies.count - 1, section: 0)
-      //   tableView.insertRows(at: [newIndexPath], with: .automatic)
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let company = self.companies[indexPath.row]
+            print("Attempting to delete company:", company.name ?? "")
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
         
-   //  }
-    
-    
+        let  editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
+            print("Editing company...")
+        }
+        return [deleteAction, editAction]
+    }
     
     private func fetchCompanies(){
          //let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
