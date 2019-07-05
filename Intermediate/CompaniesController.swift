@@ -24,6 +24,8 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
             let company = self.companies[indexPath.row]
             print("Attempting to delete company:", company.name ?? "")
+            
+            self.companies.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
