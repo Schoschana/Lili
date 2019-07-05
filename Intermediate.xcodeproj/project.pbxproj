@@ -16,6 +16,7 @@
 		222BD71D22CD46F000183CC4 /* CompaniesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BD71C22CD46F000183CC4 /* CompaniesController.swift */; };
 		222BD71F22CD48C300183CC4 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BD71E22CD48C300183CC4 /* CreateCompanyController.swift */; };
 		222BD74622CFABE700183CC4 /* IntermediateModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 222BD74422CFABE700183CC4 /* IntermediateModels.xcdatamodeld */; };
+		2230F69922CFD2DC00B9C347 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230F69822CFD2DC00B9C347 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		222BD71C22CD46F000183CC4 /* CompaniesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesController.swift; sourceTree = "<group>"; };
 		222BD71E22CD48C300183CC4 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		222BD74522CFABE700183CC4 /* IntermediateModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IntermediateModels.xcdatamodel; sourceTree = "<group>"; };
+		2230F69822CFD2DC00B9C347 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				222BD71C22CD46F000183CC4 /* CompaniesController.swift */,
 				222BD71E22CD48C300183CC4 /* CreateCompanyController.swift */,
 				222BD74422CFABE700183CC4 /* IntermediateModels.xcdatamodeld */,
+				2230F69822CFD2DC00B9C347 /* CoreDataManager.swift */,
 			);
 			path = Intermediate;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				222BD71B22CD3CF000183CC4 /* Compani.swift in Sources */,
 				222BD70422CCF8F900183CC4 /* AppDelegate.swift in Sources */,
 				222BD71D22CD46F000183CC4 /* CompaniesController.swift in Sources */,
+				2230F69922CFD2DC00B9C347 /* CoreDataManager.swift in Sources */,
 				222BD71F22CD48C300183CC4 /* CreateCompanyController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,15 +35,17 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
     
     
     private func fetchCompanies(){
-        let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
-        persistentContainer.loadPersistentStores { (storeDescription, err) in
-            if let err = err {
-                fatalError("Loading of store failed: \(err)")
+         //let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
+         //persistentContainer.loadPersistentStores { (storeDescription, err) in
+            // if let err = err {
+                // fatalError("Loading of store failed: \(err)")
                 
-            }
-        }
+          //   }
+        // }
         
-        let context = persistentContainer.viewContext
+         //let context = persistentContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
         let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
         do {
            let companies = try context.fetch(fetchRequest)
@@ -51,6 +53,8 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
                 print(company.name ?? "")
             })
             
+            self.companies = companies
+            self.tableView.reloadData()
             
         } catch let fetchErr {
             print("Failed to fetch companies:", fetchErr)
