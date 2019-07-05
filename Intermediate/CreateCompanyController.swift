@@ -71,8 +71,6 @@ class CreateCompanyController: UIViewController {
     
     
     
-    
-    
     private func setupUI() {
         
         let lightBlueBackgroundView = UIView()

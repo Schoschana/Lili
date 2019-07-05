@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreData
 
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegete {
@@ -32,9 +32,34 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
         
    //  }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    
+    private func fetchCompanies(){
+        let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("Loading of store failed: \(err)")
+                
+            }
+        }
         
+        let context = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        do {
+           let companies = try context.fetch(fetchRequest)
+            companies.forEach ({ (company) in
+                print(company.name ?? "")
+            })
+            
+            
+        } catch let fetchErr {
+            print("Failed to fetch companies:", fetchErr)
+        }
+    }
+    override func viewDidLoad() {
+      super.viewDidLoad()
+        fetchCompanies()
+       
         //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "TEST ADD", style: .plain, target: self, action: #selector(addCompany))
             
         view.backgroundColor = .white
