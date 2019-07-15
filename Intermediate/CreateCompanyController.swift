@@ -11,9 +11,16 @@ import CoreData
 // Custom Delegation
 protocol CreateCompanyControllerDelegete {
     func didAddCompany( company: Company)
+    func didEditCompany(company: Company)
 }
 
 class CreateCompanyController: UIViewController {
+    
+    var company: Company? {
+        didSet {
+            nameTextField.text = company?.name
+        }
+    }
     
     // not tightl coupled
     var delegate: CreateCompanyControllerDelegete?
@@ -34,6 +41,20 @@ class CreateCompanyController: UIViewController {
         return textField
     
      }()
+    
+    let dataPicker: UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.datePickerMode = .date
+        dp.translatesAutoresizingMaskIntoConstraints = false
+        return dp
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // ternary syntax
+        navigationItem.title = company == nil ? "Create Company" : "Edit Company"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,33 +69,48 @@ class CreateCompanyController: UIViewController {
     }
     
     @objc private func handleSave() {
-        print("Trying to save company...")
-        
-        
-       // let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
-       //  persistentContainer.loadPersistentStores { (storeDescription, err) in
-           //  if let err = err {
-              //   fatalError("Loading of store failed: \(err)")
-                
-          //   }
-       //  }
-        
-         //let context = persistentContainer.viewContext
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
-        company.setValue(nameTextField.text, forKey: "name")
-        
-        do {
-           try context.save()
+        if company == nil{
+            createCompany()
+          } else  {
+            saveCompanyChanges()
             
-             // success
-            dismiss(animated: true, completion:  {
+        }
+    }
+    
+    private func saveCompanyChanges(){
+         let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        company?.name = nameTextField.text
+        do {
+            try context.save()
+            // save succeeded 
+            dismiss(animated: true) {
+                self.delegate?.didAddCompany(company: self.company!)
+            }
+        } catch let saveErr {
+            print("Failed to save company changes:", saveErr)
+        }
+        
+    }
+    private func createCompany(){
+        
+        print("Trying to save company...")
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        
+        company.setValue(nameTextField.text, forKey: "name")
+       
+        do {
+            try context.save()
+            
+            // success
+            dismiss(animated: true, completion: {
                 self.delegate?.didAddCompany(company: company as! Company)
             })
             
-            
         } catch let saveErr {
-            print("Failed to save company: ", saveErr)
+            print("Failed to save company:", saveErr)
         }
     }
     
@@ -90,7 +126,7 @@ class CreateCompanyController: UIViewController {
         lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         
         view.addSubview(nameLabel)
@@ -106,6 +142,14 @@ class CreateCompanyController: UIViewController {
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo:nameLabel.topAnchor).isActive = true
+        // setup the date picker here
+        
+        view.addSubview(dataPicker)
+        dataPicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        dataPicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        dataPicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        dataPicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
+        
     }
     
     @objc func handleCancel() {

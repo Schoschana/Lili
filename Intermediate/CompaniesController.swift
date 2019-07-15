@@ -11,6 +11,13 @@ import CoreData
 
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegete {
+    
+    func didEditCompany(company: Company) {
+    //  Update my tableView somehow
+        let row = companies.index(of: company )
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+    }
     func didAddCompany(company: Company) {
         companies.append(company)
         
@@ -37,17 +44,28 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
             } catch let saveErr {
                 print("Failed to delete company:", saveErr)
             }
-            
-            
+         
         }
         
-        let  editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
-            print("Editing company...")
-        }
+        deleteAction.backgroundColor = UIColor.lightRed
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+        editAction.backgroundColor = UIColor.darkBlue
+        
         return [deleteAction, editAction]
     }
-    
-    private func fetchCompanies(){
+   // func didEditCompany(company: Company) {
+        
+   // }
+    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath){
+        print("Editing company in separate function")
+        
+        let editCompanyController = CreateCompanyController ()
+        editCompanyController.delegate = self
+        editCompanyController.company = companies[indexPath.row]
+        let navController = CustomNavigationController(rootViewController: editCompanyController)
+        present(navController, animated: true, completion: nil)
+    }
+    private func fetchCompanies() {
          //let persistentContainer = NSPersistentContainer(name: "IntermediateModels")
          //persistentContainer.loadPersistentStores { (storeDescription, err) in
             // if let err = err {
