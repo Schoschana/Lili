@@ -100,6 +100,7 @@ class CreateCompanyController: UIViewController {
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         
         company.setValue(nameTextField.text, forKey: "name")
+        company.setValue(dataPicker.date, forKey: "founded")
        
         do {
             try context.save()
