@@ -19,6 +19,11 @@ class CreateCompanyController: UIViewController {
     var company: Company? {
         didSet {
             nameTextField.text = company?.name
+            
+            guard let founded = company?.founded else { return}
+            datePicker.date = founded
+          
+            
         }
     }
     
@@ -42,7 +47,7 @@ class CreateCompanyController: UIViewController {
     
      }()
     
-    let dataPicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let dp = UIDatePicker()
         dp.datePickerMode = .date
         dp.translatesAutoresizingMaskIntoConstraints = false
@@ -81,6 +86,7 @@ class CreateCompanyController: UIViewController {
          let context = CoreDataManager.shared.persistentContainer.viewContext
         
         company?.name = nameTextField.text
+        company?.founded = datePicker.date
         do {
             try context.save()
             // save succeeded 
@@ -100,7 +106,7 @@ class CreateCompanyController: UIViewController {
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         
         company.setValue(nameTextField.text, forKey: "name")
-        company.setValue(dataPicker.date, forKey: "founded")
+        company.setValue(datePicker.date, forKey: "founded")
        
         do {
             try context.save()
@@ -145,11 +151,10 @@ class CreateCompanyController: UIViewController {
         nameTextField.topAnchor.constraint(equalTo:nameLabel.topAnchor).isActive = true
         // setup the date picker here
         
-        view.addSubview(dataPicker)
-        dataPicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        dataPicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        dataPicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        dataPicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
+        view.addSubview(datePicker)
+        datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        datePicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
         
     }
     

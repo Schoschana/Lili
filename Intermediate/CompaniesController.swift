@@ -14,7 +14,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
     
     func didEditCompany(company: Company) {
     //  Update my tableView somehow
-        let row = companies.index(of: company )
+        let row = companies.firstIndex(of:company )
         let reloadIndexPath = IndexPath(row: row!, section: 0)
         tableView.reloadRows(at: [reloadIndexPath], with: .middle)
     }
@@ -141,11 +141,25 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDeleget
         
         let company = companies[indexPath.row]
         
-        cell.textLabel?.text = "\(company.name) - Founded: \(company.founded)"
-        cell.textLabel?.textColor = .white
+        if let  name = company.name, let founded = company.founded {
+            // MMM dd, yyyy
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy hh:mm:ss"
+            
+            let foundedDateString = dateFormatter.string(from: founded)
+            
+           // let locale = Locale(identifier: "EN")
+            let dateString = "\(name) - Founded: \(foundedDateString)"
+            
         
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        return cell
+            cell.textLabel?.text = dateString
+        } else {
+            cell.textLabel?.text = company.name
+    }
+         cell.textLabel?.textColor = .white
+         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+         return cell
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies.count
