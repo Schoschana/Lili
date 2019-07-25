@@ -14,17 +14,28 @@ protocol CreateCompanyControllerDelegete {
     func didEditCompany(company: Company)
 }
 
-class CreateCompanyController: UIViewController {
+class CreateCompanyController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var company: Company? {
         didSet {
             nameTextField.text = company?.name
             
+            if let imageData = company?.imageData {
+                companyImageView.image = UIImage(data: imageData)
+                setupCircularImageStyle()
+            }
             guard let founded = company?.founded else { return}
             datePicker.date = founded
           
             
         }
+    }
+    private func setupCircularImageStyle() {
+        companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
+        companyImageView.clipsToBounds = true
+        
+        companyImageView.layer.borderColor = UIColor.darkBlue.cgColor
+        companyImageView.layer.borderWidth = 2
     }
     
     // not tightl coupled
@@ -34,11 +45,43 @@ class CreateCompanyController: UIViewController {
     
     
     
-    let companyImageView: UIImageView = {
+   lazy var  companyImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true // remember to do this, otherwise
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
         return imageView
     }()
+    
+    @objc  private func handleSelectPhoto() {
+        print("Trying to select photo")
+        
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+     
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            
+            companyImageView.image  = editedImage
+            
+         } else if let originalImage =
+        info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        companyImageView.image = originalImage
+        }
+       setupCircularImageStyle()
+        dismiss(animated: true, completion: nil)
+    }
+   
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -94,6 +137,13 @@ class CreateCompanyController: UIViewController {
         
         company?.name = nameTextField.text
         company?.founded = datePicker.date
+        if let companyImage = companyImageView.image {
+            let image = UIImage()
+            let imageData = image.jpegData(compressionQuality: 0.8)
+            company?.imageData = imageData
+        
+        }
+        
         do {
             try context.save()
             // save succeeded 
@@ -114,6 +164,14 @@ class CreateCompanyController: UIViewController {
         
         company.setValue(nameTextField.text, forKey: "name")
         company.setValue(datePicker.date, forKey: "founded")
+        if let companyImage = companyImageView.image {
+            let image = UIImage()
+            let imageData = image.jpegData(compressionQuality: 0.8)
+            company.setValue(imageData, forKey: "imageData")
+            
+            
+        }
+        
        
         do {
             try context.save()
