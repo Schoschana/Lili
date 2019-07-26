@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220ED75D22E987DC005BDDB6 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED75C22E987DC005BDDB6 /* CompanyCell.swift */; };
+		220ED76022E9A5B2005BDDB6 /* CompaniesController+CreateCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED75F22E9A5B2005BDDB6 /* CompaniesController+CreateCompany.swift */; };
+		220ED76222E9AE06005BDDB6 /* CompaniesController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED76122E9AE06005BDDB6 /* CompaniesController+UITableView.swift */; };
+		220ED76422E9BC35005BDDB6 /* EmployeesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED76322E9BC35005BDDB6 /* EmployeesController.swift */; };
+		220ED76722E9CAED005BDDB6 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED76622E9CAED005BDDB6 /* UIViewController+Helpers.swift */; };
+		220ED76922E9D54E005BDDB6 /* CreateEmployeeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220ED76822E9D54E005BDDB6 /* CreateEmployeeController.swift */; };
 		222BD70422CCF8F900183CC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BD70322CCF8F900183CC4 /* AppDelegate.swift */; };
 		222BD70922CCF8F900183CC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222BD70722CCF8F900183CC4 /* Main.storyboard */; };
 		222BD70E22CCF8FA00183CC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222BD70D22CCF8FA00183CC4 /* Assets.xcassets */; };
@@ -20,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		220ED75C22E987DC005BDDB6 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
+		220ED75F22E9A5B2005BDDB6 /* CompaniesController+CreateCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+CreateCompany.swift"; sourceTree = "<group>"; };
+		220ED76122E9AE06005BDDB6 /* CompaniesController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITableView.swift"; sourceTree = "<group>"; };
+		220ED76322E9BC35005BDDB6 /* EmployeesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesController.swift; sourceTree = "<group>"; };
+		220ED76622E9CAED005BDDB6 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
+		220ED76822E9D54E005BDDB6 /* CreateEmployeeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeController.swift; sourceTree = "<group>"; };
 		222BD70022CCF8F900183CC4 /* Intermediate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intermediate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		222BD70322CCF8F900183CC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		222BD70822CCF8F900183CC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -45,6 +57,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		220ED75E22E98DCE005BDDB6 /* Companies */ = {
+			isa = PBXGroup;
+			children = (
+				220ED76122E9AE06005BDDB6 /* CompaniesController+UITableView.swift */,
+				220ED75C22E987DC005BDDB6 /* CompanyCell.swift */,
+				222BD71C22CD46F000183CC4 /* CompaniesController.swift */,
+				220ED75F22E9A5B2005BDDB6 /* CompaniesController+CreateCompany.swift */,
+				220ED76322E9BC35005BDDB6 /* EmployeesController.swift */,
+				222BD71E22CD48C300183CC4 /* CreateCompanyController.swift */,
+				220ED76822E9D54E005BDDB6 /* CreateEmployeeController.swift */,
+			);
+			path = Companies;
+			sourceTree = "<group>";
+		};
+		220ED76522E9C9B2005BDDB6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				220ED76622E9CAED005BDDB6 /* UIViewController+Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		222BD6F722CCF8F900183CC4 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +98,8 @@
 		222BD70222CCF8F900183CC4 /* Intermediate */ = {
 			isa = PBXGroup;
 			children = (
+				220ED76522E9C9B2005BDDB6 /* Helpers */,
+				220ED75E22E98DCE005BDDB6 /* Companies */,
 				222BD70322CCF8F900183CC4 /* AppDelegate.swift */,
 				222BD71822CD285B00183CC4 /* UIColor+theme.swift */,
 				222BD70722CCF8F900183CC4 /* Main.storyboard */,
@@ -71,8 +107,6 @@
 				222BD70F22CCF8FA00183CC4 /* LaunchScreen.storyboard */,
 				222BD71222CCF8FA00183CC4 /* Info.plist */,
 				222BD71A22CD3CF000183CC4 /* Compani.swift */,
-				222BD71C22CD46F000183CC4 /* CompaniesController.swift */,
-				222BD71E22CD48C300183CC4 /* CreateCompanyController.swift */,
 				222BD74422CFABE700183CC4 /* IntermediateModels.xcdatamodeld */,
 				2230F69822CFD2DC00B9C347 /* CoreDataManager.swift */,
 			);
@@ -150,9 +184,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				220ED76022E9A5B2005BDDB6 /* CompaniesController+CreateCompany.swift in Sources */,
 				222BD74622CFABE700183CC4 /* IntermediateModels.xcdatamodeld in Sources */,
 				222BD71922CD285B00183CC4 /* UIColor+theme.swift in Sources */,
 				222BD71B22CD3CF000183CC4 /* Compani.swift in Sources */,
+				220ED76722E9CAED005BDDB6 /* UIViewController+Helpers.swift in Sources */,
+				220ED75D22E987DC005BDDB6 /* CompanyCell.swift in Sources */,
+				220ED76222E9AE06005BDDB6 /* CompaniesController+UITableView.swift in Sources */,
+				220ED76922E9D54E005BDDB6 /* CreateEmployeeController.swift in Sources */,
+				220ED76422E9BC35005BDDB6 /* EmployeesController.swift in Sources */,
 				222BD70422CCF8F900183CC4 /* AppDelegate.swift in Sources */,
 				222BD71D22CD46F000183CC4 /* CompaniesController.swift in Sources */,
 				2230F69922CFD2DC00B9C347 /* CoreDataManager.swift in Sources */,
