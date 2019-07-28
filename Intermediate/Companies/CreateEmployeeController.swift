@@ -35,6 +35,20 @@ class CreateEmployeeController: UIViewController {
         _ = setupLightBlueBackgroundView(height: 50)
         setupUI()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target:self, action: #selector(handleSave))
+    }
+    @objc private func handleSave() {
+        guard let employeeName = nameTextField.text else {
+            return }
+      let error =  CoreDataManager.shared.createEmployee(employeeName: employeeName)
+        
+        if let error = error {
+            // is where
+            print(error)
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+       
     }
     
     private func setupUI() {
